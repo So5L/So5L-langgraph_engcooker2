@@ -200,6 +200,7 @@ def init_session():
         "chosen": 1,
         "feedback": "",
         "final_thumbnail": None,
+        "history": [],  # {"label": str, "image": bytes}
     }
     for key, value in defaults.items():
         if key not in st.session_state:
@@ -296,13 +297,37 @@ elif st.session_state.step == "generating_hd":
 elif st.session_state.step == "done":
     st.subheader("최종 HD 썸네일")
     if st.session_state.final_thumbnail:
-        st.image(st.session_state.final_thumbnail, use_container_width=True)
+        # 히스토리에 아직 저장되지 않은 경우 저장
+        img = st.session_state.final_thumbnail
+        label = st.session_state.word_input[:30] or f"썸네일 {len(st.session_state.history) + 1}"
+        if not st.session_state.history or st.session_state.history[-1]["image"] != img:
+            st.session_state.history.append({"label": label, "image": img})
+
+        st.image(img, use_container_width=True)
         st.download_button(
             label="썸네일 다운로드",
-            data=st.session_state.final_thumbnail,
+            data=img,
             file_name="thumbnail_final.jpg",
             mime="image/jpeg",
         )
 
     if st.button("처음부터 다시 시작"):
         reset_session()
+
+# ── 사이드바: 히스토리 ──────────────────────────────────────────────────────
+with st.sidebar:
+    st.header("생성 히스토리")
+    if not st.session_state.history:
+        st.caption("아직 생성된 썸네일이 없습니다.")
+    else:
+        for i, item in enumerate(reversed(st.session_state.history)):
+            idx = len(st.session_state.history) - i
+            st.image(item["image"], caption=item["label"], use_container_width=True)
+            st.download_button(
+                label="다운로드",
+                data=item["image"],
+                file_name=f"thumbnail_{idx}.jpg",
+                mime="image/jpeg",
+                key=f"dl_{idx}",
+            )
+            st.divider()
