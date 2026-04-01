@@ -228,7 +228,7 @@ def reset_session():
 # ---------------------------------------------------------------------------
 
 st.title("Thumbnail Maker Agent")
-st.caption("영단어 설명을 입력하면 YouTube Shorts 썸네일 5개를 생성합니다.")
+st.caption("영단어 설명을 입력하면 YouTube Shorts 썸네일 3개를 생성합니다.")
 
 init_session()
 graph = compile_graph()
@@ -274,7 +274,7 @@ elif st.session_state.step == "awaiting_feedback":
             horizontal=True,
         )
         feedback = st.text_area(
-            "수정 요청사항을 말씀해주세요!",
+            "수정 요청사항을 말씀해주세요! (없어도 괜찮아요)",
             placeholder="예: 로고를 제거하고, 사실적인 3D 스타일로 만들어줘.",
             height=100,
         )
