@@ -100,10 +100,10 @@ def generate_thumbnails(args):
 
     client = OpenAI()
     result = client.images.generate(
-        model="dall-e-3",
+        model="gpt-image-1-mini",
         prompt=thumbnail_prompt,
-        quality="standard",
-        size="1024x1792",
+        quality="Low",
+        size="1024x1536",
         response_format="b64_json",
     )
     image_bytes = base64.b64decode(result.data[0].b64_json)
@@ -154,10 +154,10 @@ def generate_hd_thumbnail(state: State):
 
     client = OpenAI()
     result = client.images.generate(
-        model="dall-e-3",
+        model="gpt-image-1-mini",
         prompt=final_thumbnail_prompt,
-        quality="hd",
-        size="1024x1792",
+        quality="High",
+        size="1024x1536",
         response_format="b64_json",
     )
     image_bytes = base64.b64decode(result.data[0].b64_json)
