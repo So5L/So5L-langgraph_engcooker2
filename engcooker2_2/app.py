@@ -102,9 +102,9 @@ def generate_thumbnails(args):
     result = client.images.generate(
         model="gpt-image-1-mini",
         prompt=thumbnail_prompt,
-        quality="Low",
+        quality="low",
         size="1024x1536",
-        response_format="b64_json",
+        output_format="jpeg",
     )
     image_bytes = base64.b64decode(result.data[0].b64_json)
 
@@ -156,9 +156,9 @@ def generate_hd_thumbnail(state: State):
     result = client.images.generate(
         model="gpt-image-1-mini",
         prompt=final_thumbnail_prompt,
-        quality="High",
+        quality="high",
         size="1024x1536",
-        response_format="b64_json",
+        output_format="jpeg",
     )
     image_bytes = base64.b64decode(result.data[0].b64_json)
 
