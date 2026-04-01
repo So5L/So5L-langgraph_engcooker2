@@ -57,16 +57,17 @@ def generate_thumbnails(args):
     summary = args["summary"]
 
     prompt = f"""
-    You are creating a HIGH-CONVERSION YouTube Shorts thumbnail for learning English vocabulary.
+    You are creating a YouTube Shorts thumbnail for an educational English vocabulary channel.
+    The content is safe, family-friendly, and suitable for all ages.
 
     Your goal:
     Make the English word AND its etymology instantly understandable within 3 seconds.
 
-    CRITICAL REQUIREMENTS:
+    REQUIREMENTS:
     - The word must be LARGE, bold, and central (primary focus)
     - The etymology/root must be visually highlighted and connected to the meaning
     - The design must be SIMPLE, high contrast, and instantly readable on mobile
-    - Avoid clutter, long sentences, or abstract visuals
+    - Use only positive, educational, non-violent imagery
 
     Extract from the summary:
     - Target word
@@ -77,36 +78,25 @@ def generate_thumbnails(args):
     1. Main Word (VERY LARGE, center)
     2. Root / Origin (smaller but highlighted, e.g., "pro = forward")
     3. Visual Metaphor (clearly shows the meaning of the root)
-       → Must visually explain the word without needing text
 
     VISUAL STYLE:
-    - Bright, high contrast colors (yellow, red, black, white)
-    - Strong lighting, cinematic, dramatic
-    - Clean background, minimal distractions
-    - Focus on ONE clear scene
+    - Bright, high contrast colors (yellow, blue, green, white)
+    - Clean, well-lit scene
+    - Minimal background, no clutter
+    - Focus on ONE clear, family-friendly scene
 
-    TEXT OVERLAY RULES:
-    - Max 3–5 words total
-    - No full sentences
-    - Example format:
-        PROTECT
-        pro = forward
+    TEXT OVERLAY:
+    - Max 3-5 words total
+    - Example format: PROTECT / pro = forward
 
-    COMPOSITION:
-    - Word at center
-    - Visual metaphor behind or interacting with the word
-    - Root text placed near the relevant visual element
-
-    IMPORTANT:
-    The viewer must immediately understand:
-    "Oh, THAT'S what this word means!"
+    IMPORTANT: Use only safe, educational, non-violent imagery appropriate for a language learning channel.
 
     Summary:
     {summary}
     """
 
     response = llm.invoke(prompt)
-    thumbnail_prompt = response.content
+    thumbnail_prompt = f"Educational English vocabulary YouTube thumbnail, safe for all ages, family-friendly. {response.content[:3800]}"
 
     client = OpenAI()
     result = client.images.generate(
@@ -160,7 +150,7 @@ def generate_hd_thumbnail(state: State):
             - IMPORTANT: Always ensure adequate white space/padding between any text and the image borders
     """
     response = llm.invoke(prompt)
-    final_thumbnail_prompt = response.content
+    final_thumbnail_prompt = f"Educational English vocabulary YouTube thumbnail, safe for all ages, family-friendly. {response.content[:3800]}"
 
     client = OpenAI()
     result = client.images.generate(
