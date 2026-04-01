@@ -1,6 +1,6 @@
-langgraph>=1.1.4
-langchain>=1.0.0
-langchain-openai>=1.1.12
-langchain-core>=1.2.23
-openai>=1.0.0
-streamlit>=1.55.0
+langgraph==1.1.4
+langchain==1.2.14
+langchain-openai==1.1.12
+langchain-core==1.2.23
+openai==2.30.0
+streamlit==1.56.0
